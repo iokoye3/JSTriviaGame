@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Trivia Quiz</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div id="quizcontainer">
+		<h1>Trivia Quiz</h1>
+		<input type="button" id="exit" onclick="exit()" value="Exit Quiz" />
+		<br>
+		<br>
+		<div id="remainingquestions">Remaining Questions: <span id="remainingQuestions"></span></div>
+		<br>
+		<div id="score">Score: 0</div>
+		<br>
+		<div id="qAndA">
+			<div id="question"></div>
+			<br>
+			<div id="answers"></div>
+			<br>
+		</div>
+
+		<script>
+			const questionElement = document.getElementById('question');
+			const answersElement = document.getElementById('answers');
+			const scoreElement = document.getElementById('score');
+			const quizSettings = JSON.parse(localStorage.getItem('quizSettings'));
+			const amount = quizSettings.amount;
+			const difficulty = quizSettings.difficulty;
+			const category = quizSettings.category;
+			let questions = [];
+			let score = 0;
+			let totalQuestions = amount;
+			let remainingQuestions = totalQuestions;
+
+			function exit() {
+				window.location.href = "TriviaOptions.html";
+			}
+			
+			function decodeHtml(html) {
+				const txt = document.createElement('textarea');
+				txt.innerHTML = html.replace(/%20/g, ' ').replace(/%22/g, '"').replace(/%3F/g, '?').replace(/%27/g, "'").replace(/%2C/g, ',').replace(/%3A/g, ':').replace(/%3B/g, ';').replace(/%2A/g, '*').replace(/%2E/g, '.').replace(/%2F/g, '/').replace(/%25/g, '%').replace(/%21/g, '!').replace(/%26/g, '&').replace(/%28/g, '(').replace(/%29/g, ')').replace(/%A9/g, '©');
+				return txt.value;
+			}
+			
+			function updateRemainingCount() {
+				const remainingQElement = document.getElementById('remainingQuestions');
+				remainingQElement.textContent = remainingQuestions;
+			}
+
+			function showQuestion(question) {
+				questionElement.innerHTML = decodeHtml(question.question);
+				answersElement.innerHTML = '';
+				
+				const answers = shuffle([...question.incorrect_answers, question.correct_answer]);
+				
+				answers.forEach(answer => {
+					const button = document.createElement('button');
+					button.innerHTML = decodeHtml(answer);
+					button.addEventListener('click', checkAnswer.bind(null, question, answer));
+					answersElement.appendChild(button);
+				});
+			}
+			
+			function shuffle(array) {
+				for (let i = array.length - 1; i > 0; i--) {
+					const j = Math.floor(Math.random() * (i + 1));
+					[array[i], array[j]] = [array[j], array[i]];
+				}
+				return array;
+			}
+
+			function checkAnswer(question, selectedAnswer) {
+				const correctAnswer = question.correct_answer;
+				const selected = event.target;
+
+				if (selectedAnswer === correctAnswer) {
+					selected.classList.add('correct');
+					score++;
+				} 
+				else {
+					selected.classList.add('incorrect');
+					const answerChoices = document.querySelectorAll('#answers button');
+					answerChoices.forEach(button => {
+						if (button.innerHTML === correctAnswer) {
+							button.classList.add('correct');
+						}
+						button.disabled = true;
+					});
+				}
+
+
+				scoreElement.innerHTML = `Score: ${score}`
+				remainingQuestions--;
+				updateRemainingCount();
+				
+				setTimeout(() => {
+					if (remainingQuestions > 0) {
+						getQuestions(amount, category, difficulty)
+							.then(questions => {
+								showQuestion(questions[totalQuestions - remainingQuestions]);
+							})
+							.catch(error => {
+								console.error(error);
+							});
+					}
+					else {
+						localStorage.setItem('score', score);
+						window.location.href="TriviaScore.html";
+					}
+				}, 1000);
+			}
+			
+			function getQuestions(amount, category, difficulty) {
+				const apiUrl = `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=multiple`;
+
+				return fetch(apiUrl)
+					.then(response => response.json())
+					.then(data => {
+						if (data.response_code === 0) {
+							return data.results;
+						} else {
+							throw new Error(error);
+						}
+					});
+			}
+		
+			getQuestions(amount, category, difficulty)
+				.then(questions => {
+					showQuestion(questions[0]); 
+				})
+				.catch(error => {
+					console.error(error);
+				});
+
+		</script>
+	</div>
+</body>
+</html>

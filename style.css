@@ -1,0 +1,202 @@
+* {
+	font-family: "Calibri";
+}
+body {
+	width: 100%;
+	height: auto;
+	//background-color: #FAEBD7;
+	background-image: url("R.gif");
+}
+#startcontainer {
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+#startcontainer h1 {
+	color: white;
+}
+#startcontainer input[type=button]{
+	width: 25%;
+	background-color: white;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	justify-content: center;
+	text-align: center;
+	border-radius: 10px;
+	font-size: 24px;
+}
+#startcontainer input[type=button]:hover{
+	color: red;
+}
+#menucontainer {
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+#quizcontainer {
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+#scorecontainer {
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+#menucontainer input[type=number]{
+	width: 25%;
+    align-items: center;
+	justify-content: center;
+	font-size: 24px;
+	border-radius: 10px;
+	text-align: center;
+}
+#menucontainer h1, label {
+	font-size: 24px;
+	color: white;
+}
+#menucontaineroption option{
+	font-size: 24px;
+}
+#menucontainer p {
+	font-size: 30px;
+	color: white;
+}
+#menucontainer select {
+	font-size: 24px;
+	border-radius: 10px;
+}
+#menucontainer input[type=text]{
+	width: 25%;
+    align-items: center;
+	justify-content: center;
+}
+#difficulty {
+	width: 25%;
+	text-align: center;
+}
+#category {
+	width: 25%;
+	text-align: center;
+}
+#amountoption {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+#difficultyoption {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+#categoryoption {
+	display: flex;
+	flex-direction: column;
+	align-items: center;	
+}
+#menucontainer input[type=button] {
+	width: 15%;
+	background-color: white;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	justify-content: center;
+	border-radius: 10px;
+	font-size: 24px;
+}
+#menucontainer input[type=button]:hover {
+	color: red;
+}
+#quizcontainer h1 {
+	color: white;
+}
+#quizcontainer input[type=button] {
+	width: 15%;
+	background-color: white;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-radius: 10px;
+	font-size: 24px;
+}
+#quizcontainer input[type=button]:hover {
+	color: red;
+}
+#qAndA {
+	display: flex;
+	width: 100%;
+	text-align: center;
+	justify-content: center;
+}
+#question {
+	background-color: white;
+	border-style: solid;
+	margin-left: 50px;
+	margin-right: 50px;
+	border-radius: 10px;
+	font-size: 24px;
+	padding: 10px;
+	width: 60%;
+}
+#answers button {
+	display: block;
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 10px;
+	background-color: white;
+	color: #333;
+	font-size: 24px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+#button:hover {
+	color: red;
+}
+#answers button.correct {
+    background-color: green;
+    color: white;
+}
+
+#answers button.incorrect {
+    background-color: red;
+    color: white;
+}
+#score {
+	width: 15%;
+	background-color: white;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 20px;
+	border-radius: 10px;
+	border-style: solid;
+}
+#remainingquestions {
+	width: 15%;
+	background-color: white;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 20px;
+	border-radius: 10px;
+	border-style: solid;
+}
+#scorecontainer input[type=button] {
+	width: 25%;
+	background-color: white;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	justify-content: center;
+	text-align: center;
+	border-radius: 10px;
+	font-size: 24px;
+}
+#scorecontainer input[type=button]:hover {
+	color: red;
+}
+#scorecontainer h1 {
+	text-align: center;
+	font-size: 36px;
+	color: white;
+}
+#finalscore {
+	font-size: 48px;
+	color: white;
+}
